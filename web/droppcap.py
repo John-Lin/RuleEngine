@@ -6,6 +6,7 @@ import datetime
 from bottle import route, request, static_file, run
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), ".."))
 from malware.core.engine import RuleEngineOnline
+from bottle import error
 
 
 def gen_rule(path):
@@ -30,7 +31,17 @@ def gen_rule(path):
 
 @route('/')
 def root():
-    return static_file('index.html', root='.')
+    return static_file('test.html', root='.')
+
+
+@error(404)
+def error404(error):
+    return '404 not found'
+
+
+@error(500)
+def error500(error):
+    return '500 internal server error'
 
 
 @route('/upload', method='POST')
@@ -39,6 +50,9 @@ def do_upload():
     t = time.time()
     t_stamp = datetime.datetime.fromtimestamp(t).strftime('%Y_%m_%d_%H_%M_%S')
     upload = request.files.get('upload')
+
+    if upload is None:
+        return 'Please select a PCAP file'
     name, ext = os.path.splitext(upload.filename)
 
     if ext not in ('.pcap'):
