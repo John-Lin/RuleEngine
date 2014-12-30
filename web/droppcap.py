@@ -31,7 +31,7 @@ def gen_rule(path):
 
 @route('/')
 def root():
-    return static_file('test.html', root='.')
+    return static_file('index.html', root='.')
 
 
 @error(404)
