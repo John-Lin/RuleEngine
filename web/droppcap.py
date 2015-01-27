@@ -21,7 +21,7 @@ def gen_rule(path):
         ruleobj.sid = sid
         rules.append(str(ruleobj))
 
-    rules = list(set(rules))
+    # rules = list(set(rules))
     t = time.time()
     t_stamp = datetime.datetime.fromtimestamp(t).strftime('%Y-%m-%d %H-%M-%S')
     fp = open('history.rules', 'a')
@@ -86,3 +86,4 @@ def do_upload():
 
 if __name__ == '__main__':
     run(host='localhost', port=8080)
+    # run(host='0.0.0.0', port=8080)
