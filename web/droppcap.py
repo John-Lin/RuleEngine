@@ -12,9 +12,15 @@ from bottle import error
 def gen_rule(path):
     rules = list()
     r = RuleEngineOnline(path)
-    r.generate()
+    r.http_rule_generate()
+    r.dns_rule_generate()
+
+    sid = 0
     for ruleobj in r.rules:
+        sid += 1
+        ruleobj.sid = sid
         rules.append(str(ruleobj))
+
     rules = list(set(rules))
     t = time.time()
     t_stamp = datetime.datetime.fromtimestamp(t).strftime('%Y-%m-%d %H-%M-%S')
